@@ -1,0 +1,105 @@
+﻿<Window x:Class="WpfApp4.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp4"
+
+        mc:Ignorable="d" WindowStyle="None"
+       
+        Title="MainWindow" Name="mainw"   Visibility="Visible" Width="auto" Height="auto"
+         >
+    <Window.Resources>
+        <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+
+    </Window.Resources>
+    <StackPanel  >
+        <Grid   Background="AntiqueWhite"  
+            Width="{Binding ElementName=mainw, Path=Width}" 
+            Height="{Binding ElementName=mainw, Path=Height}" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="3*" />
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/Dtafalonso-Android-Lollipop-Dictionary.ico" Width="100"
+                       HorizontalAlignment="Left" ></Image>
+                <TextBlock VerticalAlignment="Top" FontSize="15" FontWeight="Bold" Foreground="Red"> Make your own world</TextBlock>
+            </StackPanel>
+            <Button Grid.Column="1"  Grid.Row="1" Height="30" Width="90"
+                    VerticalAlignment="Bottom" HorizontalAlignment="Right"
+            Margin="0,0,26,28" Template="{DynamicResource Buttonelipt}"  >
+                <Button.Resources>
+
+                    <ControlTemplate x:Key="Buttonelipt" TargetType="{x:Type Button}" >
+                        <Border CornerRadius="10" BorderBrush="Black" BorderThickness="2"
+                                            Background="AliceBlue" MouseEnter="Ovr" MouseLeave="Lovr"
+                                            Mouse.MouseDown="Upload">
+                            <TextBlock FontSize="14" HorizontalAlignment="Center">Upload</TextBlock>
+                        </Border>
+
+                    </ControlTemplate>
+
+                </Button.Resources>
+            </Button>
+            <Border Grid.Row="1" Grid.Column="0"  ScrollViewer.CanContentScroll="True">
+                <Viewbox>
+                    <Image x:Name="phot"  Stretch="Fill"
+                   
+Width="{Binding Mode=OneWay ,Path=Width ,UpdateSourceTrigger=PropertyChanged }" 
+      Height="{Binding Mode=OneWay ,Path=Height ,UpdateSourceTrigger=PropertyChanged }"></Image>
+
+                </Viewbox>
+            </Border>
+
+            <StackPanel Grid.Row="0" Grid.Column="1">
+                <TextBlock
+       Visibility="{Binding SelectedItem, ElementName=rect,Converter={StaticResource NullToVisibilityConverter }}"
+       IsHitTestVisible="False"
+       Text="... Select Option ..."  HorizontalAlignment="Center"/>
+                <ComboBox  Width="90" Name="rect" 
+                 Focusable="False"   IsReadOnly="True"  IsEditable="True"
+ Text="-- Options --"        >
+                
+                    <ComboBox.Resources>
+                        <Style   x:Key="blwh" TargetType="{x:Type ComboBoxItem}" >
+                            <Setter Property="Background" Value="Black"/>
+                            <Setter Property="Foreground" Value="White"/>
+
+                        </Style>
+                    </ComboBox.Resources >
+                    <ComboBoxItem Style="{StaticResource blwh}" >
+                        <Button Background="Black" Foreground="White" FontSize="15"
+                           Width="{Binding ElementName=rect,
+                    Path=Width}"
+ 
+                          Click="Stretchy">Stretch</Button>
+                    </ComboBoxItem>
+
+                    <ComboBoxItem  Style="{StaticResource blwh}"  >
+                        <Button FontSize="15"
+                           Width="{Binding ElementName=rect,
+                    Path=Width }"
+ 
+                  Style="{StaticResource but2}" Click="Rotate"  >Rotate</Button>
+                    </ComboBoxItem>
+                    <ComboBoxItem Style="{StaticResource blwh}" >
+                        <Button Background="Black" Foreground="White" FontSize="15"
+                           Width="{Binding ElementName=rect,
+                    Path=Width }"
+ 
+                       Click="Narrow ">Narrow</Button>
+                    </ComboBoxItem>
+                </ComboBox>
+                
+
+            </StackPanel>
+        </Grid>
+
+
+    </StackPanel>
+</Window>
